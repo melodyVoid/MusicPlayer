@@ -1,4 +1,4 @@
-# vue-music-player
+# vue-music-player  慕课网的学习项目
 
 > vue-music-player
 
