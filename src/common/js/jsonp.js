@@ -18,7 +18,7 @@ function joinParams(params) {
   let url = ''
   for (const key of Object.keys(params)) {
     const value = params[key] || ''
-    url += `&{key}=${encodeURIComponent(value)}`
+    url += `&${key}=${encodeURIComponent(value)}`
   }
   return url ? url.substring(1) : ''
 }
