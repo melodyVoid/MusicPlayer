@@ -19,3 +19,11 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+
+## 2018-01-14
+
+- 起骨架
+- 项目依赖安装`bebel-runtime`(对ES6语法的转义)和`fast-click`(解决移动端300毫秒延迟的问题)
+- 开发依赖安装`babel-polyfill`(类似补丁)
