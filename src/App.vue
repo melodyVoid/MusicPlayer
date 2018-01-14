@@ -1,23 +1,25 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <m-header></m-header>
+    <tab></tab>
     <router-view/>
   </div>
 </template>
 
 <script>
+import MHeader from 'components/m-header/index'
+import Tab from 'components/tab'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MHeader,
+    Tab
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style rel="stylesheet/stylus" lang="stylus">
+  @import "common/stylus/variable";
+  #app
+    color: $color-theme
 </style>
