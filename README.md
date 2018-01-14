@@ -29,3 +29,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 开发依赖安装`babel-polyfill`(类似补丁)
 - 头部组件、tab组件
 - 推荐页、歌手页、排行页、歌手页路由配置
+- 依赖安装`jsonp`、在common/js文件夹下封装通用的jsonp方法
+- ​
