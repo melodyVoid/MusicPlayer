@@ -27,3 +27,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 起骨架
 - 项目依赖安装`bebel-runtime`(对ES6语法的转义)和`fast-click`(解决移动端300毫秒延迟的问题)
 - 开发依赖安装`babel-polyfill`(类似补丁)
+- 头部组件、tab组件
+- 推荐页、歌手页、排行页、歌手页路由配置
