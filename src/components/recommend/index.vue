@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import { getRecommend } from 'api/recommend'
+  import { getRecommend, getAllList } from 'api/recommend'
   import { ERR_OK } from 'api/config' // 语义化
   import Slider from 'base/slider'
   export default {
@@ -32,6 +32,7 @@
     },
     created() {
       this._getRecommend()
+      this._getAllList()
     },
     methods: {
       _getRecommend() {
@@ -40,6 +41,12 @@
             if (response.code === ERR_OK) {
               this.recommends = response.data.slider
             }
+          })
+      },
+      _getAllList() {
+        getAllList()
+          .then(response => {
+            console.log(response)
           })
       }
     }
