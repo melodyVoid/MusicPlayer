@@ -37,3 +37,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 给`slider`和`sliderGroup`添加引用，用于计算slider容器的宽度
 - 在common/js文件夹下面创建通用的dom.js用于进行添加className
 - `better-scroll`升级到最新版`snap`的写法有变动（踩坑）
+
+## 2018-01-15
+
+- 为轮播图加上dots，在slider初始化之前初始化dots
+- ​

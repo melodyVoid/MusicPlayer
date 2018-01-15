@@ -3,6 +3,9 @@
     <div class="slider-group" ref="sliderGroup">
       <slot></slot>
     </div>
+    <div class="dots">
+      <span class="dot" v-for="(item, index) in dots" :key="index" :class="{active: currentPageIndex === index}"></span>
+    </div>
   </div>
 </template>
 <script>
@@ -11,7 +14,9 @@ import { addClass } from 'common/js/dom'
 export default {
   data() {
     return {
-      children: []
+      children: [],
+      dots: [],
+      currentPageIndex: 0
     }
   },
   props: {
@@ -33,11 +38,29 @@ export default {
   mounted() {
     setTimeout(() => {
       this._setSliderWidth()
+      this._initDots()
       this._initSlider()
+      // 如果autoplay为true,就执行_play方法
+      if (this.autoPlay) {
+        this._play()
+      }
     }, 20) // 20毫秒经验值
+
+    window.addEventListener('resize', () => {
+      if (!this.slider) {
+        return
+      } else {
+        this._setSliderWidth(true)
+        this.slider.refresh()
+      }
+    })
+  },
+  // 组件卸载的时候清理定时器
+  destroyed() {
+    clearTimeout(this.timer)
   },
   methods: {
-    _setSliderWidth() {
+    _setSliderWidth(isResize) {
       this.children = [...this.$refs.sliderGroup.children] // 类数组转换为数组，可以用数组的forEach方法
       let width = 0
       const sliderWidth = this.$refs.slider.clientWidth
@@ -46,7 +69,7 @@ export default {
         item.style.width = sliderWidth + 'px'
         width += sliderWidth
       })
-      if (this.loop) {
+      if (this.loop && !isResize) {
         width += 2 * sliderWidth
       }
       this.$refs.sliderGroup.style.width = width + 'px'
@@ -65,6 +88,31 @@ export default {
         snapSpeed: 400,
         click: true
       })
+      this.slider.on('scrollEnd', () => {
+        const pageIndex = this.slider.getCurrentPage().pageX
+        // if (this.loop) {
+        //   // 如果无缝滚动，pageIndex需要减1，因为前面加了一个DOM元素
+        //   pageIndex -= 1
+        // }
+        // 新版本betterScroll修复这个问题
+        this.currentPageIndex = pageIndex
+
+        // 滚动完毕时，如果是自动播放就先清理定时器
+        if (this.autoPlay) {
+          clearTimeout(this.timer)
+          this._play()
+        }
+      })
+    },
+    _initDots() {
+      this.dots = new Array(this.children.length)
+    },
+    _play() {
+      // 对应到第几个元素
+      const pageIndex = this.currentPageIndex + 1
+      this.timer = setInterval(() => {
+        this.slider.goToPage(pageIndex, 0, 400)
+      }, this.interval)
     }
   }
 }
