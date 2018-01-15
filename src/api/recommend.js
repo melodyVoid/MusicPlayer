@@ -12,7 +12,7 @@ export function getRecommend() {
   return jsonp(url, params, options)
 }
 
-export function getDiscList() {
+export function getAllList() {
   const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
   const params = { ...commonParams, ...{
     platform: 'yqq',

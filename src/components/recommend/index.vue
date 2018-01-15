@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import { getRecommend, getDiscList } from 'api/recommend'
+  import { getRecommend, getAllList } from 'api/recommend'
   import { ERR_OK } from 'api/config' // 语义化
   import Slider from 'base/slider'
   export default {
@@ -32,7 +32,7 @@
     },
     created() {
       this._getRecommend()
-      this._getDistList()
+      this._getAllList()
     },
     methods: {
       _getRecommend() {
@@ -43,8 +43,8 @@
             }
           })
       },
-      _getDistList() {
-        getDiscList()
+      _getAllList() {
+        getAllList()
           .then(response => {
             console.log(response)
           })
