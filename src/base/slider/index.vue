@@ -55,6 +55,10 @@ export default {
       }
     })
   },
+  // 组件卸载的时候清理定时器
+  destroyed() {
+    clearTimeout(this.timer)
+  },
   methods: {
     _setSliderWidth(isResize) {
       this.children = [...this.$refs.sliderGroup.children] // 类数组转换为数组，可以用数组的forEach方法
