@@ -12,7 +12,17 @@
       </div>
       <div class="recommend-list">
         <h1 class="list-title">热门歌单推荐</h1>
-        <ul></ul>
+        <ul>
+          <li class="item" v-for="(item, index) in discList" :key="index">
+            <div class="icon">
+              <img width="60" height="60" :src="item.cover" alt="图片">
+            </div>
+            <div class="text">
+              <h2 class="name" v-html="item.title"></h2>
+              <p class="desc" v-html="item.rcmdcontent"></p>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -24,7 +34,8 @@
   export default {
     data() {
       return {
-        recommends: []
+        recommends: [],
+        discList: []
       }
     },
     components: {
@@ -42,11 +53,20 @@
               this.recommends = response.data.slider
             }
           })
+          .catch(err => {
+            console.log(err)
+          })
       },
       _getAllList() {
         getAllList()
           .then(response => {
-            console.log(response)
+            if (response.code === ERR_OK) {
+              // console.log(response.recomPlaylist.data.v_hot)
+              this.discList = response.recomPlaylist.data.v_hot
+            }
+          })
+          .catch(err => {
+            console.log(err)
           })
       }
     }
