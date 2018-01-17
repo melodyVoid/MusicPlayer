@@ -41,4 +41,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## 2018-01-15
 
 - 为轮播图加上dots，在slider初始化之前初始化dots
-- ​
+- 轮播图组件完成
+
+## 2018-01-16
+
+- 为 router-view 添加 keepAlive ,缓存 DOM ,优化体验
+- 填坑：请求推荐歌单数据返回json和jsonp的问题
+- 获取推荐歌单数据并渲染到页面
+- 封装 scroll 组件

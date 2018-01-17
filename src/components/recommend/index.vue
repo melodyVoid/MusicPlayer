@@ -1,36 +1,39 @@
 <template>
   <div class="recommend">
-    <div class="recommend-content">
-      <div v-if="recommends.length" class="slider-wrapper">
-        <slider>
-          <div v-for="item in recommends" :key="item.id">
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl" alt="">
-            </a>
-          </div>
-        </slider>
-      </div>
-      <div class="recommend-list">
-        <h1 class="list-title">热门歌单推荐</h1>
-        <ul>
-          <li class="item" v-for="(item, index) in discList" :key="index">
-            <div class="icon">
-              <img width="60" height="60" :src="item.cover" alt="图片">
+    <scroll class="recommend-content" :data="discList">
+      <div>
+        <div v-if="recommends.length" class="slider-wrapper">
+          <slider>
+            <div v-for="item in recommends" :key="item.id">
+              <a :href="item.linkUrl">
+                <img :src="item.picUrl" alt="">
+              </a>
             </div>
-            <div class="text">
-              <h2 class="name" v-html="item.title"></h2>
-              <p class="desc" v-html="item.rcmdcontent"></p>
-            </div>
-          </li>
-        </ul>
+          </slider>
+        </div>
+        <div class="recommend-list" :data="discList">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li class="item" v-for="(item, index) in discList" :key="index">
+              <div class="icon">
+                <img width="60" height="60" :src="item.cover" alt="图片">
+              </div>
+              <div class="text">
+                <h2 class="name" v-html="item.title"></h2>
+                <p class="desc" v-html="item.rcmdcontent"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </scroll>
   </div>
 </template>
 <script>
   import { getRecommend, getAllList } from 'api/recommend'
   import { ERR_OK } from 'api/config' // 语义化
   import Slider from 'base/slider'
+  import Scroll from 'base/scroll'
   export default {
     data() {
       return {
@@ -39,7 +42,8 @@
       }
     },
     components: {
-      Slider
+      Slider,
+      Scroll
     },
     created() {
       this._getRecommend()
