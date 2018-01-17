@@ -49,3 +49,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 填坑：请求推荐歌单数据返回json和jsonp的问题
 - 获取推荐歌单数据并渲染到页面
 - 封装 scroll 组件
+- 监听 img 的 onload 事件，保证 scroll 组件的高度计算没有问题

@@ -1,12 +1,12 @@
 <template>
   <div class="recommend">
-    <scroll class="recommend-content" :data="discList">
+    <scroll ref="scroll" class="recommend-content" :data="discList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper">
           <slider>
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img :src="item.picUrl" alt="">
+                <img @load="imageLoad" :src="item.picUrl" alt="">
               </a>
             </div>
           </slider>
@@ -72,6 +72,12 @@
           .catch(err => {
             console.log(err)
           })
+      },
+      imageLoad() {
+        if (!this.checkLoad) {
+          this.$refs.scroll.refresh()
+          this.checkLoad = true // 保证 scroll 刷新一次就好了
+        }
       }
     }
   }
