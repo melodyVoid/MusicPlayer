@@ -55,4 +55,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 - 图片懒加载，`yarn add vue-lazyload` ,在 main.js 中引用模块，然后 `use` 它
 - 使用：在组件中将之前的 `:src="item.imageUrl"` 替换为 `v-lazy="item.imageUrl"`
-- 封装 loading 组件，放在 base 里面
+- 封装 loading 组件，放在 base 里面。然后在 recommend 中使用 loading 组件
+- 歌手页面
