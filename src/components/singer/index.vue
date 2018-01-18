@@ -1,11 +1,12 @@
 <template>
   <div class="singer">
-    歌手页面
+    <list-view :data="singers"></list-view>
   </div>
 </template>
 <script>
   import { getSingerList } from 'api/singer'
   import { ERR_OK } from 'api/config'
+  import ListView from 'base/listview'
   const HOT_NAME = '热门'
   const HOT_SINGER_LEN = 10
   export default {
@@ -17,15 +18,15 @@
     created() {
       this._getSingerList()
     },
-    components: {},
+    components: {
+      ListView
+    },
     methods: {
       async _getSingerList() {
         try {
           const response = await getSingerList()
           if (response.code === ERR_OK) {
-            this.singers = response.data.list
-            console.log(this._normalizeSinger(this.singers))
-            // console.log(response.data.list)
+            this.singers = this._normalizeSinger(response.data.list)
           }
         } catch (err) {
           console.log(err)
