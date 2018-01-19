@@ -101,16 +101,23 @@
       },
       scrollY(newY) {
         const listHeight = this.listHeight
-        for (let i = 0; i < listHeight.length; i++) {
+        // 当滚动到顶部，newY > 0
+        if (newY > 0) {
+          this.currentIndex = 0
+          return
+        }
+        // 在中间部分滚动
+        for (let i = 0; i < listHeight.length - 1; i++) {
           const height1 = listHeight[i]
           const height2 = listHeight[i + 1]
           // 如果滑到最后或者或者落在区间里，currentIndex 就为当前的 i
-          if (!height2 || (-newY > height1 && -newY < height2)) {
+          if (-newY > height1 && -newY < height2) {
             this.currentIndex = i
             return
           }
         }
-        this.currentIndex = 0
+        // 当滚动到底部，且 -newY 大于最后一个元素的上限
+        this.currentIndex = listHeight.length - 2
       }
     }
   }

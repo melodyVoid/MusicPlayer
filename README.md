@@ -76,3 +76,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 在观测一个 currentIndex 表示当前应该显示的是第几个，currnetIndex 是哪个就表示哪个是高亮显示
 - listview 组件中添加  `_calculateHeight` 方法来计算高度，得到一个高度区间数组 `this.listHeight`
 - 然后 watch `scrollY` 的值，来计算得到 `currentIndex` 在根据 `currentIndex` 来绑定 current 样式
+- 梳理 `scrollY` 里面的逻辑，分为三个部分
