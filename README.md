@@ -66,4 +66,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 在 common/js/dom.js 中加入 `getData` 方法，用于获取元素的自定义属性 `data-` 开头的
 - 通过 `onShortcutTouchStart` 传入的事件对象，再结合 `getData` 方法可以获取到 `anchorIndex`
 - 丰富 scroll 组件，添加 scrollTo 和 scrollToElement 两个方法
-- ​
+- 给 list-shortcut 添加 `touchmove` 事件，并阻止默认行为和冒泡 `@touchmove.stop.prevent`
+- `onShortcutTouchMove` 需要一个差值（delta），所以在 `onShortcutTouchStart` 中需要保存第一次触碰的位置，两个函数需要同时能访问到这个值，所以在 `created` 钩子函数中定义 `this.touch = {}`
+- 为什么不在 `data` 里面写 `touch` 因为写在 `data` 里面的数据是会被观察者观察的，我们只是在两个函数之间共同使用，所以没有必要进行被观察
+- 根据第一次开始触碰的锚点索引和差值锚点索引，计算出新的锚点索引，然后调用 `_scrollTo` 方法滚动到相应位置
