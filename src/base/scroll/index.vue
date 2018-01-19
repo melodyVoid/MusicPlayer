@@ -21,6 +21,10 @@
       data: {
         type: Array,
         default: null
+      },
+      listen: {
+        type: Boolean,
+        default: false
       }
     },
     components: {},
@@ -36,6 +40,14 @@
           probeType: this.probeType,
           click: this.click
         })
+        // 如果监听了
+        if (this.listen) {
+          // 监听滚动事件
+          this.scroll.on('scroll', position => {
+            // 派发一个事件出去
+            this.$emit('scroll', position)
+          })
+        }
       },
       enable() {
         this.scroll && this.scroll.enable()

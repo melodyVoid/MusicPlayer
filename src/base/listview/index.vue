@@ -1,5 +1,5 @@
 <template>
-  <scroll class="listview" :data="data" ref="listview">
+  <scroll class="listview" :data="data" ref="listview" :listen="listenScroll" @scroll="scroll" :probeType="probeType">
     <ul>
       <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
         <h2 class="list-group-title">{{ group.title }}</h2>
@@ -13,7 +13,12 @@
     </ul>
     <div class="list-shortcut" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul>
-        <li class="item" v-for="(item, index) in shortcutList" :key="index" :data-index="index">
+        <li class="item"
+            v-for="(item, index) in shortcutList"
+            :key="index"
+            :data-index="index"
+            :class="{'current': currentIndex === index}"
+        >
           {{ item }}
         </li>
       </ul>
@@ -26,10 +31,16 @@
   const ANCHOR_HEIGHT = 18 // 样式定义来的
   export default {
     data() {
-      return {}
+      return {
+        scrollY: -1,
+        currentIndex: 0
+      }
     },
     created() {
       this.touch = {}
+      this.listenScroll = true // 将这个传到 scroll 组件里就可以派发 'scroll' 事件了
+      this.listHeight = []
+      this.probeType = 3
     },
     components: {
       Scroll
@@ -63,8 +74,43 @@
         const anchorIndex = parseInt(this.touch.anchorIndex) + delta // 滑动后的锚点索引
         this._scrollTo(anchorIndex)
       },
+      // scroll 组件中向外派发事件，这里我们用 scroll 方法接收
+      scroll(position) {
+        this.scrollY = position.y // 看它落在 listHeight 的哪个区间
+      },
       _scrollTo(index) {
-        this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
+        this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 100)
+      },
+      _calculateHeight() {
+        this.listHeight = []
+        const list = [...this.$refs.listGroup] // 类数组转换为数组
+        let height = 0
+        this.listHeight.push(height)
+        list.forEach(item => {
+          height += item.clientHeight
+          this.listHeight.push(height)
+        })
+      }
+    },
+    watch: {
+      data() {
+        // data 发生变化就去计算高度
+        setTimeout(() => {
+          this._calculateHeight()
+        }, 20)
+      },
+      scrollY(newY) {
+        const listHeight = this.listHeight
+        for (let i = 0; i < listHeight.length; i++) {
+          const height1 = listHeight[i]
+          const height2 = listHeight[i + 1]
+          // 如果滑到最后或者或者落在区间里，currentIndex 就为当前的 i
+          if (!height2 || (-newY > height1 && -newY < height2)) {
+            this.currentIndex = i
+            return
+          }
+        }
+        this.currentIndex = 0
       }
     }
   }
