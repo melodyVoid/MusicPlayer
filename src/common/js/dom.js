@@ -15,3 +15,14 @@ export function hasClass(el, className) {
   const reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
   return reg.test(el.className)
 }
+
+// 获取特定元素的自定义属性值
+export function getData(el, name, value) {
+  const prefix = 'data-'
+  name = prefix + name
+  if (value) {
+    return el.setAttribute(name, value)
+  } else {
+    return el.getAttribute(name)
+  }
+}

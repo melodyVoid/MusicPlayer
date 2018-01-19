@@ -11,10 +11,18 @@
         </ul>
       </li>
     </ul>
+    <div class="list-shortcut" @touchstart="onShortcutTouchStart">
+      <ul>
+        <li class="item" v-for="(item, index) in shortcutList" :key="index" :data-index="index">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </scroll>
 </template>
 <script>
   import Scroll from 'base/scroll'
+  import { getData } from 'common/js/dom'
   export default {
     data() {
       return {}
@@ -28,7 +36,17 @@
         default: []
       }
     },
-    methods: {}
+    computed: {
+      shortcutList() {
+        return this.data.map(group => group.title.substr(0, 1))
+      }
+    },
+    methods: {
+      onShortcutTouchStart(e) {
+        // 获取索引
+        const anchorIndex = getData(e.target, 'index')
+      }
+    }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">

@@ -59,3 +59,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 歌手页面，获取歌手数据，并将数据处理成我们想要的数据格式
 - 开发 listview 组件
 
+
+## 2018-01-19
+
+- 用计算属性计算出 `shortcutList` 用于歌手页最右边的快速索引
+- 在 common/js/dom.js 中加入 `getData` 方法，用于获取元素的自定义属性 `data-` 开头的
+- 通过 `onShortcutTouchStart` 传入的事件对象，再结合 `getData` 方法可以获取到 `anchorIndex`
+- 丰富 scroll 组件，添加 scrollTo 和 scrollToElement 两个方法
+- ​
