@@ -59,3 +59,21 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 歌手页面，获取歌手数据，并将数据处理成我们想要的数据格式
 - 开发 listview 组件
 
+
+## 2018-01-19
+
+- 用计算属性计算出 `shortcutList` 用于歌手页最右边的快速索引
+- 在 common/js/dom.js 中加入 `getData` 方法，用于获取元素的自定义属性 `data-` 开头的
+- 通过 `onShortcutTouchStart` 传入的事件对象，再结合 `getData` 方法可以获取到 `anchorIndex`
+- 丰富 scroll 组件，添加 scrollTo 和 scrollToElement 两个方法
+- 给 list-shortcut 添加 `touchmove` 事件，并阻止默认行为和冒泡 `@touchmove.stop.prevent`
+- `onShortcutTouchMove` 需要一个差值（delta），所以在 `onShortcutTouchStart` 中需要保存第一次触碰的位置，两个函数需要同时能访问到这个值，所以在 `created` 钩子函数中定义 `this.touch = {}`
+- 为什么不在 `data` 里面写 `touch` 因为写在 `data` 里面的数据是会被观察者观察的，我们只是在两个函数之间共同使用，所以没有必要进行被观察
+- 根据第一次开始触碰的锚点索引和差值锚点索引，计算出新的锚点索引，然后调用 `_scrollTo` 方法滚动到相应位置
+- 增加联动效果，丰富 scroll 组件，添加 `props` 中的 listen 属性，在初始化 scroll 组件的时候，进行判断，如果 listen 属性是 true 那么就向外派发 'scroll' 事件
+- 在 listview 组件中设置 listenScroll 为 true，并传入 scroll 组件中的 listen 属性中，scroll 组件派发 'scroll' 事件，我们在 listview 组件中用 'scroll' 方法接收
+- listview 组件中的 data 里面设置 scrollY 为 -1，表示需要监听的位置
+- 在观测一个 currentIndex 表示当前应该显示的是第几个，currnetIndex 是哪个就表示哪个是高亮显示
+- listview 组件中添加  `_calculateHeight` 方法来计算高度，得到一个高度区间数组 `this.listHeight`
+- 然后 watch `scrollY` 的值，来计算得到 `currentIndex` 在根据 `currentIndex` 来绑定 current 样式
+- 梳理 `scrollY` 里面的逻辑，分为三个部分
