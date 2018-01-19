@@ -48,7 +48,7 @@
     methods: {
       onShortcutTouchStart(e) {
         // 获取索引
-        const anchorIndex = getData(e.target, 'index')
+        const anchorIndex = getData(e.target, 'index') // 注意：这里是字符串
         const firstTouch = e.touches[0] // 第一次触碰的位置
         this.touch.y1 = firstTouch.pageY
         this.touch.anchorIndex = anchorIndex // 记录第一次点击的时候是第几个锚点的索引
@@ -60,7 +60,7 @@
         this.touch.y2 = firstTouch.pageY
         const deltaY = this.touch.y2 - this.touch.y1 // Y 轴上的偏移
         const delta = deltaY / ANCHOR_HEIGHT | 0 // 或0是向下取整，这句话的意思是在 Y 轴上偏移了几个锚点
-        const anchorIndex = this.touch.anchorIndex + delta // 滑动后的锚点索引
+        const anchorIndex = parseInt(this.touch.anchorIndex) + delta // 滑动后的锚点索引
         this._scrollTo(anchorIndex)
       },
       _scrollTo(index) {
