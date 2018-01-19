@@ -45,6 +45,17 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh() // 刷新，重新计算高度
+      },
+      // scrollTo() {
+      //   this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+      // }
+      // 将上面的方法进行改进
+      scrollTo(...args) {
+        // 先 rest 再 spread
+        this.scroll && this.scroll.scrollTo(...args)
+      },
+      scrollToElement(...args) {
+        this.scroll && this.scroll.scrollToElement(...args)
       }
     },
     watch: {
