@@ -1,7 +1,7 @@
 <template>
-  <scroll class="listview" :data="data">
+  <scroll class="listview" :data="data" ref="listview">
     <ul>
-      <li v-for="(group, index) in data" :key="index" class="list-group">
+      <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
         <h2 class="list-group-title">{{ group.title }}</h2>
         <ul>
           <li v-for="item in group.items" :key="item.id" class="list-group-item">
@@ -45,6 +45,7 @@
       onShortcutTouchStart(e) {
         // 获取索引
         const anchorIndex = getData(e.target, 'index')
+        this.$refs.listview.scrollToElement(this.$refs.listGroup[anchorIndex], 0)
       }
     }
   }
