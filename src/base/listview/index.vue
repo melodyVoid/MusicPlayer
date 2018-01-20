@@ -23,17 +23,26 @@
         </li>
       </ul>
     </div>
+    <div class="list-fixed" v-show="fixedTitle" ref="fixed">
+      <h1 class="fixed-title">{{ fixedTitle }}</h1>
+    </div>
+    <div class="loading-container" v-show="!data.length">
+      <loading/>
+    </div>
   </scroll>
 </template>
 <script>
   import Scroll from 'base/scroll'
+  import Loading from 'base/loading'
   import { getData } from 'common/js/dom'
   const ANCHOR_HEIGHT = 18 // 样式定义来的
+  const TITLE_HEIGHT = 30 // fixedTitle的高度
   export default {
     data() {
       return {
         scrollY: -1,
-        currentIndex: 0
+        currentIndex: 0,
+        diff: -1
       }
     },
     created() {
@@ -43,7 +52,8 @@
       this.probeType = 3
     },
     components: {
-      Scroll
+      Scroll,
+      Loading
     },
     props: {
       data: {
@@ -54,6 +64,10 @@
     computed: {
       shortcutList() {
         return this.data.map(group => group.title.substr(0, 1))
+      },
+      fixedTitle() {
+        if (this.scrollY > 0) return ''
+        return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
       }
     },
     methods: {
@@ -79,6 +93,14 @@
         this.scrollY = position.y // 看它落在 listHeight 的哪个区间
       },
       _scrollTo(index) {
+        if (!index && index !== 0) return
+        // 处理边界问题
+        if (index < 0) {
+          index = 0
+        } else if (index > this.listHeight.length - 2) {
+          index = this.listHeight.length - 2
+        }
+        this.scrollY = -this.listHeight[index]
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 100)
       },
       _calculateHeight() {
@@ -111,13 +133,21 @@
           const height1 = listHeight[i]
           const height2 = listHeight[i + 1]
           // 如果滑到最后或者或者落在区间里，currentIndex 就为当前的 i
-          if (-newY > height1 && -newY < height2) {
+          if (-newY >= height1 && -newY < height2) {
             this.currentIndex = i
+            this.diff = height2 - (-newY)
             return
           }
         }
         // 当滚动到底部，且 -newY 大于最后一个元素的上限
         this.currentIndex = listHeight.length - 2
+      },
+      diff(newVal) {
+        const fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
+        if (this.fixedTop === fixedTop) return // 为了防止每次都进行 dom 操作
+        this.fixedTop = fixedTop
+        // this.$refs.fixed.style.transform = `translateY(${this.fixedTop}px)`
+        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
     }
   }
@@ -173,7 +203,7 @@
           color: $color-theme
     .list-fixed
       position: absolute
-      top: 0
+      top: -1px
       left: 0
       width: 100%
       .fixed-title
