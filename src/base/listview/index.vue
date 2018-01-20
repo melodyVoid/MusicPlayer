@@ -79,6 +79,7 @@
         this.scrollY = position.y // 看它落在 listHeight 的哪个区间
       },
       _scrollTo(index) {
+        this.scrollY = -this.listHeight[index]
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 100)
       },
       _calculateHeight() {
@@ -111,7 +112,7 @@
           const height1 = listHeight[i]
           const height2 = listHeight[i + 1]
           // 如果滑到最后或者或者落在区间里，currentIndex 就为当前的 i
-          if (-newY > height1 && -newY < height2) {
+          if (-newY >= height1 && -newY < height2) {
             this.currentIndex = i
             return
           }
