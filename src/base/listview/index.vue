@@ -26,10 +26,14 @@
     <div class="list-fixed" v-show="fixedTitle" ref="fixed">
       <h1 class="fixed-title">{{ fixedTitle }}</h1>
     </div>
+    <div class="loading-container" v-show="!data.length">
+      <loading/>
+    </div>
   </scroll>
 </template>
 <script>
   import Scroll from 'base/scroll'
+  import Loading from 'base/loading'
   import { getData } from 'common/js/dom'
   const ANCHOR_HEIGHT = 18 // 样式定义来的
   const TITLE_HEIGHT = 30 // fixedTitle的高度
@@ -48,7 +52,8 @@
       this.probeType = 3
     },
     components: {
-      Scroll
+      Scroll,
+      Loading
     },
     props: {
       data: {

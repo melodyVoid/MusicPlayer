@@ -84,3 +84,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 快速入口滑动的时候边界处理
 - 歌手列表页添加 fixedTitle
 - fixedTitle 的向上顶的效果
+- 歌手列表页添加 loading 效果
