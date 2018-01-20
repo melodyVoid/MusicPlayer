@@ -82,3 +82,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 - 解决点击歌手列表右边快速入口，字母不高亮的问题
 - 快速入口滑动的时候边界处理
+- 歌手列表页添加 fixedTitle

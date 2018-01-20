@@ -23,6 +23,9 @@
         </li>
       </ul>
     </div>
+    <div class="list-fixed" v-show="fixedTitle">
+      <h1 class="fixed-title">{{ fixedTitle }}</h1>
+    </div>
   </scroll>
 </template>
 <script>
@@ -54,6 +57,10 @@
     computed: {
       shortcutList() {
         return this.data.map(group => group.title.substr(0, 1))
+      },
+      fixedTitle() {
+        if (this.scrollY > 0) return ''
+        return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
       }
     },
     methods: {
@@ -181,7 +188,7 @@
           color: $color-theme
     .list-fixed
       position: absolute
-      top: 0
+      top: -1px
       left: 0
       width: 100%
       .fixed-title
