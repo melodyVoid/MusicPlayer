@@ -77,3 +77,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - listview 组件中添加  `_calculateHeight` 方法来计算高度，得到一个高度区间数组 `this.listHeight`
 - 然后 watch `scrollY` 的值，来计算得到 `currentIndex` 在根据 `currentIndex` 来绑定 current 样式
 - 梳理 `scrollY` 里面的逻辑，分为三个部分
+
+## 2018-01-20
+
+- 解决点击歌手列表右边快速入口，字母不高亮的问题
+- 快速入口滑动的时候边界处理
+- 歌手列表页添加 fixedTitle
+- fixedTitle 的向上顶的效果
+- 歌手列表页添加 loading 效果
