@@ -23,7 +23,7 @@
         </li>
       </ul>
     </div>
-    <div class="list-fixed" v-show="fixedTitle">
+    <div class="list-fixed" v-show="fixedTitle" ref="fixed">
       <h1 class="fixed-title">{{ fixedTitle }}</h1>
     </div>
   </scroll>
@@ -32,11 +32,13 @@
   import Scroll from 'base/scroll'
   import { getData } from 'common/js/dom'
   const ANCHOR_HEIGHT = 18 // 样式定义来的
+  const TITLE_HEIGHT = 30 // fixedTitle的高度
   export default {
     data() {
       return {
         scrollY: -1,
-        currentIndex: 0
+        currentIndex: 0,
+        diff: -1
       }
     },
     created() {
@@ -128,11 +130,19 @@
           // 如果滑到最后或者或者落在区间里，currentIndex 就为当前的 i
           if (-newY >= height1 && -newY < height2) {
             this.currentIndex = i
+            this.diff = height2 - (-newY)
             return
           }
         }
         // 当滚动到底部，且 -newY 大于最后一个元素的上限
         this.currentIndex = listHeight.length - 2
+      },
+      diff(newVal) {
+        const fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
+        if (this.fixedTop === fixedTop) return // 为了防止每次都进行 dom 操作
+        this.fixedTop = fixedTop
+        // this.$refs.fixed.style.transform = `translateY(${this.fixedTop}px)`
+        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
     }
   }
