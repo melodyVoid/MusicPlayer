@@ -79,6 +79,13 @@
         this.scrollY = position.y // 看它落在 listHeight 的哪个区间
       },
       _scrollTo(index) {
+        if (!index && index !== 0) return
+        // 处理边界问题
+        if (index < 0) {
+          index = 0
+        } else if (index > this.listHeight.length - 2) {
+          index = this.listHeight.length - 2
+        }
         this.scrollY = -this.listHeight[index]
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 100)
       },
