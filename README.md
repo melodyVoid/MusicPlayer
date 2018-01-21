@@ -92,3 +92,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 给 singer-details 组件添加转场动画
 - 安装并初始化 vuex
 - 抓取歌手详情信息数据
+- 为了得到我们想要的数据，我们创建一个类 Song
+- 给 Song 类扩展一个工厂方法
+- `_normalizeSongs` 得到我们想要的数据
