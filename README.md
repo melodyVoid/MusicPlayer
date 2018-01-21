@@ -95,3 +95,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 为了得到我们想要的数据，我们创建一个类 Song
 - 给 Song 类扩展一个工厂方法
 - `_normalizeSongs` 得到我们想要的数据
+- 添加 music-list 组件
+- 开发 song-list 组件
