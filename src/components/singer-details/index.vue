@@ -4,9 +4,16 @@
   </transition>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     data() {
       return {}
+    },
+    computed: {
+      ...mapGetters(['singer'])
+    },
+    created() {
+      console.log(this.singer)
     },
     components: {},
     methods: {}
