@@ -19,3 +19,23 @@ export function getSingerList() {
   }
   return jsonp(url, params, options)
 }
+
+// 获取歌手详情
+export function getSingerDetails(singermid) {
+  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?'
+  const params = {
+    ...commonParams,
+    ...{
+      loginUin: 0,
+      hostUin: 0,
+      platform: 'yqq',
+      needNewCode: 0,
+      order: 'listen',
+      begin: 0,
+      num: 100,
+      songStatus: 1,
+      singermid
+    }
+  }
+  return jsonp(url, params, options)
+}

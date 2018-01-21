@@ -85,3 +85,15 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 歌手列表页添加 fixedTitle
 - fixedTitle 的向上顶的效果
 - 歌手列表页添加 loading 效果
+
+## 2018-01-21
+
+- 创建业务组件 singer-details ，并配置路由
+- 给 singer-details 组件添加转场动画
+- 安装并初始化 vuex
+- 抓取歌手详情信息数据
+- 为了得到我们想要的数据，我们创建一个类 Song
+- 给 Song 类扩展一个工厂方法
+- `_normalizeSongs` 得到我们想要的数据
+- 添加 music-list 业务组件
+- 开发 song-list 基础组件
