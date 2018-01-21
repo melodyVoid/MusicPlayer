@@ -5,6 +5,8 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
+  import { getSingerDetails } from 'api/singer'
+  import { ERR_OK } from 'api/config'
   export default {
     data() {
       return {}
@@ -13,10 +15,26 @@
       ...mapGetters(['singer'])
     },
     created() {
-      console.log(this.singer)
+      this._getSingerDetails()
     },
     components: {},
-    methods: {}
+    methods: {
+      async _getSingerDetails() {
+        // 如果没有 mid 就跳转回去
+        if (!this.singer.mid) {
+          this.$router.push('/singer')
+          return
+        }
+        try {
+          const response = await getSingerDetails(this.singer.mid)
+          if (response.code === ERR_OK) {
+            console.log(response.data.list)
+          }
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }
   }
 </script>
 <style rel="stylesheet/stylus" lang="stylus" scoped>

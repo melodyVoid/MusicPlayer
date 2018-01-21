@@ -50,6 +50,7 @@
             // 热门歌手里面只加 10 条
             map.hot.items.push({
               id: item.Fsinger_id,
+              mid: item.Fsinger_mid,
               name: item.Fsinger_name,
               avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
             })
@@ -63,6 +64,7 @@
           }
           map[key].items.push({
             id: item.Fsinger_id,
+            mid: item.Fsinger_mid,
             name: item.Fsinger_name,
             avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
           })
