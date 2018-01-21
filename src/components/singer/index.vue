@@ -1,6 +1,7 @@
 <template>
   <div class="singer">
-    <list-view :data="singers"></list-view>
+    <list-view :data="singers" @select="selectSinger"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -22,6 +23,9 @@
       ListView
     },
     methods: {
+      selectSinger(singerId) {
+        this.$router.push(`/singer/${singerId}`)
+      },
       async _getSingerList() {
         try {
           const response = await getSingerList()

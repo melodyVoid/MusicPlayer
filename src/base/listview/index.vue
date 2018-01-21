@@ -4,7 +4,7 @@
       <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
         <h2 class="list-group-title">{{ group.title }}</h2>
         <ul>
-          <li v-for="item in group.items" :key="item.id" class="list-group-item">
+          <li v-for="item in group.items" :key="item.id" class="list-group-item" @click="selectSinger(item.id)">
             <img v-lazy="item.avatar" alt="头像" class="avatar">
             <span class="name">{{ item.name }}</span>
           </li>
@@ -71,6 +71,9 @@
       }
     },
     methods: {
+      selectSinger(singerId) {
+        this.$emit('select', singerId)
+      },
       onShortcutTouchStart(e) {
         // 获取索引
         const anchorIndex = getData(e.target, 'index') // 注意：这里是字符串

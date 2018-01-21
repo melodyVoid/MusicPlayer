@@ -85,3 +85,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 歌手列表页添加 fixedTitle
 - fixedTitle 的向上顶的效果
 - 歌手列表页添加 loading 效果
+
+## 2018-01-21
+
+- 创建业务组件 singer-details ，并配置路由
+- 给 singer-details 组件添加转场动画
