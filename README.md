@@ -97,3 +97,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - `_normalizeSongs` 得到我们想要的数据
 - 添加 music-list 业务组件
 - 开发 song-list 基础组件
+
+## 2018-01-22
+
+- 在 music-list 组件中添加 layer 层，用于歌曲向上滑的时候跟随一起动
+- 修复歌曲文字高于背景图片的问题
+- 歌曲上滑的时候添加 blur 效果
+- 在 dom.js 中封装 prefixStyle 方法，根据不同浏览器添加不同的 transform 头部
+- 添加 playBtn
