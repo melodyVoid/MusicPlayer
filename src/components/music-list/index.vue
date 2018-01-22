@@ -5,7 +5,7 @@
     </div>
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
-      <div class="filter"></div>
+      <div class="filter" ref="filter"></div>
     </div>
     <div class="bg-layer" ref="layer"></div>
     <div>
@@ -69,6 +69,7 @@
         const translateY = Math.max(this.minTranslateY, newY)
         let zIndex = 0
         let scale = 1
+        let blur = 0
         this.$refs.layer.style['transform'] = `translate3d(0, ${translateY}px, 0)`
         this.$refs.layer.style['webkitTransform'] = `translate3d(0, ${translateY}px, 0)`
         const persent = Math.abs(newY / this.imageHeight)
@@ -76,7 +77,11 @@
           // 向下拉
           zIndex = 10
           scale = 1 + persent
+        } else {
+          blur = Math.min(20 * persent, 20)
         }
+        this.$refs.filter.style['backdrop-filter'] = `blur(${blur}px)`
+        this.$refs.filter.style['webkitBackdrop-filter'] = `blur(${blur}px)`
         if (newY < this.minTranslateY) {
           zIndex = 10
           this.$refs.bgImage.style.paddingTop = 0
