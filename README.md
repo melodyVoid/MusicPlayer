@@ -101,3 +101,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## 2018-01-22
 
 - 在 music-list 组件中添加 layer 层，用于歌曲向上滑的时候跟随一起动
+- 修复歌曲文字高于背景图片的问题
