@@ -43,7 +43,7 @@
           if (response.code === ERR_OK) {
             // console.log(response.data.list)
             this.songs = this._normalizeSongs(response.data.list)
-            console.log(this.songs)
+            // console.log(this.songs)
           }
         } catch (err) {
           console.log(err)
@@ -66,7 +66,7 @@
   .slide-enter-active, .slide-leave-active {
     transition: all 0.3s ease
   }
-  .slide-enter, .slider-leave-to {
+  .slide-enter, .slide-leave-to {
     transform: translate3d(100%, 0, 0)
   }
 </style>
