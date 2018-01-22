@@ -97,3 +97,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - `_normalizeSongs` 得到我们想要的数据
 - 添加 music-list 业务组件
 - 开发 song-list 基础组件
+
+## 2018-01-22
+
+- 在 music-list 组件中添加 layer 层，用于歌曲向上滑的时候跟随一起动
